@@ -23,7 +23,7 @@ export default function IndexPage() {
       <Banner />
       <WhyChoose />
       <CallToAction />
-      <Footer />
+      {/* <Footer /> */}
     </Layout>
   );
 }
