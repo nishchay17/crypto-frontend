@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import Link from "next/link";
-import { jsx, Container, Flex, Heading } from "theme-ui";
+import { jsx, Container, Flex, Heading, Box } from "theme-ui";
 import { Link as ScrollLink } from "react-scroll";
 
 import MobileDrawer from "./mobileDrawer";
@@ -10,7 +10,7 @@ import { DrawerProvider } from "../../contexts/drawer/drawer.provider";
 export default function Header({ className, navLinkData }) {
   return (
     <DrawerProvider>
-      <header sx={styles.header} className={className}>
+      <Box as="header" sx={styles.header} className={className}>
         <Container sx={styles.container}>
           <Link href="/">
             <Heading sx={{ cursor: "pointer" }}>Crytpo Alert</Heading>
@@ -32,9 +32,9 @@ export default function Header({ className, navLinkData }) {
               </ScrollLink>
             ))}
           </Flex>
-          <MobileDrawer navLinkData={navLinkData} />
+          {navLinkData.length > 0 && <MobileDrawer navLinkData={navLinkData} />}
         </Container>
-      </header>
+      </Box>
     </DrawerProvider>
   );
 }

@@ -216,7 +216,10 @@ export default {
     primary: {
       fontWeight: "bold",
       color: "white",
-      bg: "primary",
+      cursor: "pointer",
+      fontWeight: "500",
+      fontFamily: "body",
+      bg: "heading_secondary",
       "&:hover": {
         bg: "dark",
       },
@@ -227,8 +230,11 @@ export default {
     },
     text: {
       backgroundColor: "transparent",
-      color: "#3183FF",
-      pl: 0,
+      color: "black",
+      p: 0,
+      display: "flex",
+      alignItems: "center",
+      cursor: "pointer",
     },
   },
   cards: {
@@ -258,17 +264,18 @@ export default {
   },
   forms: {
     label: {
-      fontSize: 1,
-      fontWeight: "bold",
+      fontSize: "1.2rem",
+      mb: "0.1rem",
     },
     input: {
-      borderRadius: 8,
+      borderRadius: "7px",
+      fontSize: "1rem",
+      border: "2px solid",
       borderColor: "border_color",
-      height: 60,
+      outline: "none",
+      fontFamily: "body",
       "&:focus": {
-        borderColor: "primary",
-        boxShadow: (t) => `0 0 0 2px ${t.colors.primary}`,
-        outline: "none",
+        borderColor: "heading_secondary",
       },
     },
   },

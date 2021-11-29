@@ -8,13 +8,14 @@ import { Waypoint } from "react-waypoint";
 
 import { useStickyState } from "../contexts/app/app.provider";
 import { useStickyDispatch } from "../contexts/app/app.provider";
+import { useUserState } from "../contexts/user/user.provider";
 
 import Header from "./header/header";
-const isLoggedIn = true;
-
+import ProtectedNav from "./header/ProtectedNav";
 export default function Layout({ children, navLinkData, withAuth }) {
   const isSticky = useStickyState("isSticky");
   const dispatch = useStickyDispatch();
+  const isLoggedIn = useUserState("isLoggedin");
 
   const router = useRouter();
 
@@ -40,20 +41,24 @@ export default function Layout({ children, navLinkData, withAuth }) {
     if (withAuth && !isLoggedIn) {
       router.push("/");
     }
-    // if (!withAuth && isLoggedIn) {
-    //   router.push("/dashboard");
-    // }
+    if (!withAuth && isLoggedIn) {
+      router.push("/dashboard");
+    }
   }, [withAuth, isLoggedIn]);
 
   if (withAuth && !isLoggedIn) return null;
   else
     return (
       <>
-        <Sticky enabled={isSticky} innerZ={991}>
-          <Header
-            navLinkData={navLinkData}
-            className={`${isSticky ? "sticky" : "unSticky"}`}
-          />
+        <Sticky enabled={isSticky} innerZ={100}>
+          {isLoggedIn ? (
+            <ProtectedNav className={`${isSticky ? "sticky" : "unSticky"}`} />
+          ) : (
+            <Header
+              navLinkData={navLinkData}
+              className={`${isSticky ? "sticky" : "unSticky"}`}
+            />
+          )}
         </Sticky>
         <Waypoint
           onEnter={removeSticky}

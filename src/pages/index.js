@@ -1,10 +1,16 @@
 import React from "react";
+import dynamic from "next/dynamic";
 
 import Seo from "../components/seo";
 import Layout from "../components/layout";
-import Banner from "../sections/Landing/banner";
-import WhyChoose from "../sections/Landing/why-choose";
-import CallToAction from "../sections/Landing/call-to-action";
+
+const Banner = dynamic(() => import("../sections/Landing/banner"));
+const WhyChoose = dynamic(() => import("../sections/Landing/why-choose"));
+const CallToAction = dynamic(() =>
+  import("../sections/Landing/call-to-action")
+);
+const Footer = dynamic(() => import("../sections/Landing/Footer"));
+
 import LANDING_NAV_LINKS from "../config/Nav/landingNavLinks";
 
 export default function IndexPage() {
@@ -17,6 +23,7 @@ export default function IndexPage() {
       <Banner />
       <WhyChoose />
       <CallToAction />
+      <Footer />
     </Layout>
   );
 }

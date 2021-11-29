@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Container, Box, Heading, Text, Link, Button } from "theme-ui";
+import { Container, Box, Heading, Text, Link, Button, Flex } from "theme-ui";
 import { AiOutlineRightCircle } from "react-icons/ai";
+import { VscChevronDown } from "react-icons/vsc";
+import { keyframes } from "@emotion/react";
 
 import BannerImage from "../../assets/banner-1.png";
+import SigninModal from "./SigninModal";
 
 const BANNER_DATA = {
   title: "Welcome To The Crypto Alerts",
@@ -13,42 +16,72 @@ const BANNER_DATA = {
     label: "Sign up now",
   },
   signin: {
-    link: "#",
     label: "Sign in",
   },
   bannerImage: BannerImage,
 };
 
+const upDown = keyframes`
+0% {
+  transform:translateY(0rem)
+}
+25% {
+  transform:translateY(-0.4rem)
+}
+50% {
+  transform:translateY(0rem)
+}
+75% {
+  transform:translateY(0.4rem)
+}
+100% {
+  transform:translateY(0rem)
+}
+`;
+
 const Banner = () => {
   const { title, text, signup, signin, bannerImage } = BANNER_DATA;
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleIsOpen(newState) {
+    setIsOpen(newState);
+  }
 
   return (
-    <Box as="section" id="banner" sx={styles.section}>
-      <Container sx={styles.container}>
-        <Box sx={styles.content}>
-          <Heading as="h1">{title}</Heading>
-          <Text as="p">{text}</Text>
-          <Box sx={styles.btnWrap}>
-            <Link href={signup.link} sx={styles.btn}>
-              {signup.label}
-            </Link>
-            <Button sx={styles.videoBtn}>
-              <Link href={signin.link}>{signin.label}</Link>
-              <AiOutlineRightCircle />
-            </Button>
+    <>
+      <Box as="section" id="banner" sx={styles.section}>
+        <Container sx={styles.container}>
+          <Box sx={styles.content}>
+            <Heading as="h1">{title}</Heading>
+            <Text as="p" sx={styles.content.para}>
+              {text}
+            </Text>
+            <Box sx={styles.btnWrap}>
+              <Link href={signup.link} sx={styles.btn}>
+                {signup.label}
+              </Link>
+              <Button sx={styles.signinBtn} onClick={() => handleIsOpen(true)}>
+                {signin.label}
+                <AiOutlineRightCircle />
+              </Button>
+            </Box>
+            <Flex sx={styles.scroll}>
+              <Text as="p">Scroll to know more</Text>
+              <VscChevronDown size="1.5rem" />
+            </Flex>
           </Box>
-        </Box>
-
-        <Box sx={styles.sectionImage}>
-          <Image
-            src={bannerImage}
-            alt="Banner Mockup"
-            width={740}
-            height={442}
-          />
-        </Box>
-      </Container>
-    </Box>
+          <Box sx={styles.sectionImage}>
+            <Image
+              src={bannerImage}
+              alt="Hero Banner"
+              width={740}
+              height={442}
+            />
+          </Box>
+        </Container>
+      </Box>
+      <SigninModal handleIsOpen={handleIsOpen} isOpen={isOpen} />
+    </>
   );
 };
 
@@ -81,7 +114,7 @@ const styles = {
       fontWeight: "body",
       mx: ["0", null, null, "auto", "0"],
     },
-    p: {
+    para: {
       fontSize: ["15px", null, null, null, "16px", "17px"],
       lineHeight: [1.85, null, 1.9, null, 1.5, 1.5],
       mt: [3, null, null, "18px"],
@@ -112,7 +145,7 @@ const styles = {
       transform: "scale(1.02)",
     },
   },
-  videoBtn: {
+  signinBtn: {
     display: "inline-flex",
     alignItems: "center",
     backgroundColor: "transparent",
@@ -130,6 +163,17 @@ const styles = {
       fontSize: ["17px", "18px", "20px"],
       position: "relative",
       top: "-1px",
+    },
+  },
+  scroll: {
+    alignItems: "center",
+    mt: "2rem",
+    justifyContent: ["center", "center", "center", "flex-start"],
+    p: {
+      mr: "1rem",
+    },
+    svg: {
+      animation: `${upDown} 2s linear infinite`,
     },
   },
   sectionImage: {

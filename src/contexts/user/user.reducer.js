@@ -1,21 +1,21 @@
 export const initialState = {
-  isOpen: false,
-  url: '',
+  isLoggedin: false,
+  name: "",
 };
 
-export function reducer(state, { type, url }) {
+export function reducer(state, { type, name }) {
   switch (type) {
-    case 'SET_OPEN':
+    case "LOGIN":
       return {
         ...state,
-        isOpen: true,
-        url,
+        isLoggedin: true,
+        name,
       };
-    case 'SET_CLOSE':
+    case "LOGOUT":
       return {
         ...state,
-        isOpen: false,
-        url: '',
+        isLoggedin: false,
+        name: "",
       };
     default: {
       throw new Error(`Unsupported action type: ${type}`);

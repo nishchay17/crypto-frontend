@@ -14,6 +14,7 @@ import "@fontsource/dm-sans/700.css";
 import "rc-drawer/assets/index.css";
 
 import { StickyProvider } from "../contexts/app/app.provider";
+import { UserProvider } from "../contexts/user/user.provider";
 
 import theme from "../theme";
 
@@ -29,7 +30,9 @@ export default function CustomApp({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <StickyProvider>
-        <Component {...pageProps} />
+        <UserProvider>
+          <Component {...pageProps} />
+        </UserProvider>
       </StickyProvider>{" "}
     </ThemeProvider>
   );

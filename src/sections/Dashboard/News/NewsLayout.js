@@ -2,42 +2,39 @@ import React, { useEffect, useState } from "react";
 import { Box, Container, Grid, Heading } from "@theme-ui/components";
 
 import useFetch from "../../../useFetch";
-import CryptoCard from "./CryptoCard";
+import NewsCard from "./NewsCard";
 import LoadingCard from "../../../components/LoadingCard";
 
-function TopCrypto() {
+function NewsLayout() {
   const { isLoading, isError, data, fetchAPI } = useFetch();
-  const [crptoData, setCrptoData] = useState([]);
+  const [newsData, setNewsData] = useState([]);
 
-  async function getCrypto() {
-    await fetchAPI({ url: "http://localhost:4000/crypto" });
+  async function getnews() {
+    await fetchAPI({ url: "http://localhost:4000/news" });
   }
 
   useEffect(async () => {
-    getCrypto();
+    getnews();
   }, []);
 
   useEffect(() => {
     if (!isLoading) {
-      setCrptoData(data.crypto);
+      setNewsData(data.news);
     }
   }, [isLoading, isError, data]);
-
   return (
-    <Box as="section" id="top-crypto" sx={styles.section}>
+    <Box as="section" id="top-news" sx={styles.section}>
       <Container variant="container.big">
         <Heading as="h1" sx={styles.title}>
-          Top Crypto
+          Top Crypto News
         </Heading>
 
-        <Grid columns={[1, 2, "repeat(5, 1fr)"]} gap="0.5rem">
+        <Grid columns={[1, 2, "repeat(4, 1fr)"]} gap="1rem">
           {isLoading
-            ? Array(5)
+            ? Array(4)
                 .fill(1)
-                .map((_, idx) => <LoadingCard key={idx} />)
-            : crptoData?.map((data) => (
-                <CryptoCard data={data} key={data.currency} />
-              ))}
+                .map((_, idx) => <LoadingCard />)
+            : newsData?.map((data) => <NewsCard news={data} />)}
         </Grid>
       </Container>
     </Box>
@@ -47,7 +44,8 @@ function TopCrypto() {
 const styles = {
   section: {
     overflow: "hidden",
-    mt: ["5rem", "7rem"],
+    mt: ["3rem", "4rem"],
+    mb: ["2rem", "2rem"],
   },
   title: {
     mb: ["2rem"],
@@ -59,4 +57,4 @@ const styles = {
   },
 };
 
-export default TopCrypto;
+export default NewsLayout;

@@ -1,20 +1,7 @@
 import React from "react";
 import { Box, Heading, Text } from "@theme-ui/components";
-import { keyframes } from "@emotion/react";
 
 import Image from "../../../components/image";
-
-const wave = keyframes`
-  0% {
-    background: rgb(92, 92, 92);
-  }
-  80% {
-    background: rgb(66, 66, 66);
-  }
-  100% {
-    background: rgb(15, 15, 15);
-  }
-`;
 
 function CryptoCard({ data }) {
   function getColor(num) {
@@ -52,10 +39,6 @@ function CryptoCard({ data }) {
   );
 }
 
-export const LoadingCryptoCard = () => {
-  return <Box sx={styles.loadingCard} />;
-};
-
 const styles = {
   flex: {
     display: "flex",
@@ -63,7 +46,7 @@ const styles = {
     justifyContent: "space-between",
   },
   cryptoCard: {
-    bg: "black",
+    backgroundColor: "#131939",
     color: "white",
     p: "1rem",
     borderRadius: "7px",
@@ -91,13 +74,6 @@ const styles = {
       height: "100%",
       width: "100%",
     },
-  },
-  loadingCard: {
-    borderRadius: "7px",
-    width: "100%",
-    height: "10rem",
-    bg: "#F4F0EF",
-    animation: `${wave} 1.5s linear infinite`,
   },
 };
 

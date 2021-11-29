@@ -1,8 +1,16 @@
 import React from "react";
+import dynamic from "next/dynamic";
+
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import TopCrypto from "../sections/Dashboard/TopCrypto/TopCrypto";
 import DASHBOARD_NAV_LINKS from "../config/Nav/dashboardNavLink";
+
+const TopCrypto = dynamic(() =>
+  import("../sections/Dashboard/TopCrypto/TopCrypto")
+);
+const NewsLayout = dynamic(() =>
+  import("../sections/Dashboard/News/NewsLayout")
+);
 
 function Dashboard() {
   return (
@@ -12,6 +20,7 @@ function Dashboard() {
         description="Get all your crypto related data here"
       />
       <TopCrypto />
+      <NewsLayout />
     </Layout>
   );
 }
