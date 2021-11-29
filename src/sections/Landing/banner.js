@@ -10,7 +10,7 @@ import SigninModal from "./SigninModal";
 
 const BANNER_DATA = {
   title: "Welcome To The Crypto Alerts",
-  text: "We helps users to track, and understand cryptocurrency market seamlessly",
+  text: "We help users to track, and understand cryptocurrency market seamlessly",
   signup: {
     link: "/sign-up",
     label: "Sign up now",
