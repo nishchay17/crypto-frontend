@@ -17,8 +17,8 @@ function useFetchAPI() {
     init();
     try {
       setIsLoading(true);
-      //process.env.NEXT_PUBLIC_API
-      const data = await fetch("http://localhost:4000/" + url, {
+
+      const data = await fetch(process.env.NEXT_PUBLIC_API + url, {
         method,
         headers: {
           "Content-Type": "application/json",
