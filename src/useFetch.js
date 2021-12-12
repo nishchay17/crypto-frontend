@@ -15,7 +15,7 @@ function useFetchAPI() {
     init();
     try {
       setIsLoading(true);
-      const data = await fetch(url, {
+      const data = await fetch(process.env.NEXT_PUBLIC_API + url, {
         method,
         body,
       });

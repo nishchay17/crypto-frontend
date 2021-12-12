@@ -10,7 +10,7 @@ function NewsLayout() {
   const [newsData, setNewsData] = useState([]);
 
   async function getnews() {
-    await fetchAPI({ url: "http://localhost:4000/news" });
+    await fetchAPI({ url: "news" });
   }
 
   useEffect(async () => {

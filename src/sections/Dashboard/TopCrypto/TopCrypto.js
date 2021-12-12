@@ -10,7 +10,7 @@ function TopCrypto() {
   const [crptoData, setCrptoData] = useState([]);
 
   async function getCrypto() {
-    await fetchAPI({ url: "http://localhost:4000/crypto" });
+    await fetchAPI({ url: "crypto" });
   }
 
   useEffect(async () => {
