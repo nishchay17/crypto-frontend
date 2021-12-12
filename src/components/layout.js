@@ -8,7 +8,11 @@ import { Waypoint } from "react-waypoint";
 
 import { useStickyState } from "../contexts/app/app.provider";
 import { useStickyDispatch } from "../contexts/app/app.provider";
-import { useUserState } from "../contexts/user/user.provider";
+import {
+  useAllUserState,
+  useUserState,
+  useUserDispatch,
+} from "../contexts/user/user.provider";
 
 import Header from "./header/header";
 import ProtectedNav from "./header/ProtectedNav";
@@ -16,8 +20,18 @@ export default function Layout({ children, navLinkData, withAuth }) {
   const isSticky = useStickyState("isSticky");
   const dispatch = useStickyDispatch();
   const isLoggedIn = useUserState("isLoggedin");
-
+  const state = useAllUserState();
+  const userDispatch = useUserDispatch();
   const router = useRouter();
+
+  useEffect(() => {
+    const cachedState = JSON.parse(localStorage.getItem("cache"));
+    userDispatch({ type: "TO_LOAD", payload: cachedState });
+  }, []);
+
+  useEffect(() => {
+    if (state) localStorage.setItem("cache", JSON.stringify(state));
+  }, [state]);
 
   const setSticky = useCallback(
     () => dispatch({ type: "SET_STICKY" }),

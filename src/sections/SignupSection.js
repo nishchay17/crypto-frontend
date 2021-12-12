@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import {
   Box,
@@ -12,6 +12,7 @@ import {
 import img from "../assets/countdown.png";
 import FormInput from "../components/Form/FormInput";
 import { useUserDispatch } from "../contexts/user/user.provider";
+import useFetchAPI from "../useFetch";
 
 const initState = {
   first_name: "",
@@ -25,6 +26,7 @@ function SignupSection() {
   const [userState, setUserState] = useState(initState);
   const router = useRouter();
   const dispatch = useUserDispatch();
+  const { isLoading, isError, data, fetchAPI } = useFetchAPI();
 
   function handleChange(e) {
     setUserState((p) => {
@@ -32,12 +34,17 @@ function SignupSection() {
     });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setUserState(initState);
-    dispatch({ type: "LOGIN" });
-    router.push("/dashboard");
+    await fetchAPI({ url: "user/signup", method: "POST", body: userState });
   }
+
+  useEffect(() => {
+    if (data.status === true) {
+      dispatch({ type: "LOGIN", payload: { token: data.token } });
+      router.push("/dashboard");
+    }
+  }, [isLoading, isError, data]);
 
   return (
     <Box as="section" id="signup" sx={styles.section}>

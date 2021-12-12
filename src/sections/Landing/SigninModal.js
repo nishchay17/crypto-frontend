@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Box, Button, Flex, Heading } from "@theme-ui/components";
 import { AiOutlineCloseCircle } from "react-icons/ai";
@@ -9,6 +9,7 @@ import {
   useUserDispatch,
   useUserState,
 } from "../../contexts/user/user.provider";
+import useFetchAPI from "../../useFetch";
 
 const initState = { email: "", password: "" };
 
@@ -18,17 +19,25 @@ function SigninModal({ handleIsOpen, isOpen }) {
   const user = useUserState("isLoggedin");
   const dispatch = useUserDispatch();
 
+  const { isLoading, isError, data, fetchAPI } = useFetchAPI();
+
   function handleChange(e) {
     setLoginInfo((p) => {
       return { ...p, [e.target.name]: e.target.value };
     });
   }
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    await fetchAPI({ url: "user/signin", method: "POST", body: loginInfo });
     setLoginInfo(initState);
-    dispatch({ type: "LOGIN" });
-    router.push("/dashboard");
   }
+
+  useEffect(() => {
+    if (data.status === true) {
+      dispatch({ type: "LOGIN", payload: { token: data.token } });
+      router.push("/dashboard");
+    }
+  }, [isLoading, isError, data]);
 
   return (
     <Modal isOpen={isOpen} handleClose={handleIsOpen}>

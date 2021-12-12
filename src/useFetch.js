@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useUserState } from "./contexts/user/user.provider";
 
 function useFetchAPI() {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({});
   const [isError, setIsError] = useState(false);
+  const token = useUserState("token");
 
   function init() {
     setData({});
@@ -15,9 +17,14 @@ function useFetchAPI() {
     init();
     try {
       setIsLoading(true);
-      const data = await fetch(process.env.NEXT_PUBLIC_API + url, {
+      //process.env.NEXT_PUBLIC_API
+      const data = await fetch("http://localhost:4000/" + url, {
         method,
-        body,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
       });
       const res = await data.json();
       setData(res);
