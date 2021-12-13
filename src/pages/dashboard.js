@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 import DASHBOARD_NAV_LINKS from "../config/Nav/dashboardNavLink";
+import SentimentAnalysisLayout from "../sections/Dashboard/SentimentAnalysis/sentimentAnalysisLayout";
 
 const TopCrypto = dynamic(() =>
   import("../sections/Dashboard/TopCrypto/TopCrypto")
@@ -19,6 +20,7 @@ function Dashboard() {
         title="Dashboard"
         description="Get all your crypto related data here"
       />
+      <SentimentAnalysisLayout />
       <TopCrypto />
       <NewsLayout />
     </Layout>

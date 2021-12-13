@@ -47,7 +47,8 @@ function TopCrypto() {
 const styles = {
   section: {
     overflow: "hidden",
-    mt: ["5rem", "7rem"],
+    mt: ["3rem", "4rem"],
+    mb: ["2rem", "2rem"],
   },
   title: {
     mb: ["2rem"],
