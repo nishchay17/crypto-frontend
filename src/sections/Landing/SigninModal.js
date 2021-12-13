@@ -33,7 +33,10 @@ function SigninModal({ handleIsOpen, isOpen }) {
   useEffect(() => {
     if (data.status === true) {
       setLoginInfo(initState);
-      dispatch({ type: "LOGIN", payload: { token: data.token } });
+      dispatch({
+        type: "LOGIN",
+        payload: { token: data.token, name: data.name },
+      });
       router.push("/dashboard");
     } else if (data.status === false || isError) {
       setError(true);

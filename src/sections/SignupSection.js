@@ -56,7 +56,10 @@ function SignupSection() {
 
   useEffect(() => {
     if (data.status === true) {
-      dispatch({ type: "LOGIN", payload: { token: data.token } });
+      dispatch({
+        type: "LOGIN",
+        payload: { token: data.token, name: data.name },
+      });
       router.push("/dashboard");
     } else if (data.status === false || isError) {
       setError(data.message);

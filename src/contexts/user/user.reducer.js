@@ -12,6 +12,7 @@ export function reducer(state, { type, payload }) {
         ...state,
         isLoggedin: true,
         token: payload.token,
+        name: payload.name,
       };
     case "LOGOUT":
       localStorage.removeItem("cache");
@@ -20,7 +21,6 @@ export function reducer(state, { type, payload }) {
         ...initialState,
       };
     case "TO_LOAD":
-      console.log({ payload });
       return {
         ...state,
         ...payload,

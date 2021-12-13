@@ -1,14 +1,17 @@
 import React from "react";
 import { Box, Button, Text } from "theme-ui";
-import { useUserDispatch } from "../../contexts/user/user.provider";
+import {
+  useUserDispatch,
+  useUserState,
+} from "../../contexts/user/user.provider";
 
 function ProjectedSubmenu() {
   const dispatch = useUserDispatch();
-
+  const name = useUserState("name");
   return (
     <Box sx={styles.subMemu}>
       <Text as="p" color="white">
-        Hello Nishchay!
+        Hello {name}!
       </Text>
       <Button
         sx={styles.logoutBtn}
