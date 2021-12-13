@@ -1,41 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { Box, Button, Flex, Heading } from "@theme-ui/components";
+import { Box, Button, Flex, Heading, Text } from "@theme-ui/components";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 import FormInput from "../../components/Form/FormInput";
 import Modal from "../../components/Modal";
-import {
-  useUserDispatch,
-  useUserState,
-} from "../../contexts/user/user.provider";
+import { useUserDispatch } from "../../contexts/user/user.provider";
 import useFetchAPI from "../../useFetch";
 
 const initState = { email: "", password: "" };
 
 function SigninModal({ handleIsOpen, isOpen }) {
   const [loginInfo, setLoginInfo] = useState(initState);
+  const [error, setError] = useState(false);
   const router = useRouter();
-  const user = useUserState("isLoggedin");
   const dispatch = useUserDispatch();
 
   const { isLoading, isError, data, fetchAPI } = useFetchAPI();
 
   function handleChange(e) {
+    setError(false);
     setLoginInfo((p) => {
       return { ...p, [e.target.name]: e.target.value };
     });
   }
   async function handleSubmit(e) {
+    setError(false);
     e.preventDefault();
     await fetchAPI({ url: "user/signin", method: "POST", body: loginInfo });
-    setLoginInfo(initState);
   }
 
   useEffect(() => {
     if (data.status === true) {
+      setLoginInfo(initState);
       dispatch({ type: "LOGIN", payload: { token: data.token } });
       router.push("/dashboard");
+    } else if (data.status === false || isError) {
+      setError(true);
     }
   }, [isLoading, isError, data]);
 
@@ -61,6 +62,7 @@ function SigninModal({ handleIsOpen, isOpen }) {
           onChange={handleChange}
           label="Password"
         />
+        {error && <Text color="red">Wrong credentials, try again</Text>}
         <Button sx={styles.btn}>Login</Button>
       </Box>
     </Modal>

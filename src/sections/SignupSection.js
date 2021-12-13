@@ -7,6 +7,7 @@ import {
   Flex,
   Heading,
   Image,
+  Text,
 } from "@theme-ui/components";
 
 import img from "../assets/countdown.png";
@@ -24,11 +25,13 @@ const initState = {
 
 function SignupSection() {
   const [userState, setUserState] = useState(initState);
+  const [error, setError] = useState("");
   const router = useRouter();
   const dispatch = useUserDispatch();
   const { isLoading, isError, data, fetchAPI } = useFetchAPI();
 
   function handleChange(e) {
+    setError("");
     setUserState((p) => {
       return { ...p, [e.target.name]: e.target.value };
     });
@@ -36,13 +39,27 @@ function SignupSection() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    await fetchAPI({ url: "user/signup", method: "POST", body: userState });
+    setError("");
+    if (userState.password !== userState.re_password) {
+      setError("Password do not match");
+    } else if (
+      userState.password === "" ||
+      userState.first_name === "" ||
+      userState.last_name === "" ||
+      userState.email === ""
+    ) {
+      setError("All the fields are mandatory");
+    } else {
+      await fetchAPI({ url: "user/signup", method: "POST", body: userState });
+    }
   }
 
   useEffect(() => {
     if (data.status === true) {
       dispatch({ type: "LOGIN", payload: { token: data.token } });
       router.push("/dashboard");
+    } else if (data.status === false || isError) {
+      setError(data.message);
     }
   }, [isLoading, isError, data]);
 
@@ -84,6 +101,7 @@ function SignupSection() {
               onChange={handleChange}
               type="password"
             />
+            {error !== "" && <Text color="red">{error}</Text>} <br />
             <Button mt="1.5rem">Signup</Button>
           </Box>
           <Image src={img} sx={styles.img} />
