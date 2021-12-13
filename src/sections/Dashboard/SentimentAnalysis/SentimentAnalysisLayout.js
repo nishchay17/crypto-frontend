@@ -16,7 +16,8 @@ function SaCard({ type, total, score }) {
     <Flex
       sx={{
         alignItems: "baseline",
-        mr: "1rem",
+        mr: [0, "1rem"],
+        mb: ["1rem", 0],
         border: "3px solid",
         borderRadius: "3px",
         px: "0.5rem",
@@ -80,7 +81,7 @@ function SentimentAnalysisLayout() {
         ) : data.status === false ? (
           <Text>Please try again</Text>
         ) : (
-          <Flex>
+          <Flex sx={styles.flex}>
             <SaCard score={saData.negative} total={total} type={"Negative"} />
             <SaCard score={saData.neutral} total={total} type={"Neutral"} />
             <SaCard score={saData.positive} total={total} type={"Positive"} />
@@ -98,6 +99,9 @@ const styles = {
   },
   title: {
     mb: ["2rem"],
+  },
+  flex: {
+    flexDirection: ["column", "row"],
   },
 };
 

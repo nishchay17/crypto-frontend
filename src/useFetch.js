@@ -13,19 +13,27 @@ function useFetchAPI() {
     setIsLoading(false);
   }
 
-  async function fetchAPI({ url, method = "GET", body }) {
+  async function fetchAPI({ url, method = "GET", body, query }) {
     init();
+    let q =
+      !!query &&
+      Object.keys(query)
+        .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(query[k]))
+        .join("&");
     try {
       setIsLoading(true);
 
-      const data = await fetch(process.env.NEXT_PUBLIC_API + url, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(body),
-      });
+      const data = await fetch(
+        process.env.NEXT_PUBLIC_API + url + (q ? `?${q}` : ""),
+        {
+          method,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(body),
+        }
+      );
       const res = await data.json();
       setData(res);
     } catch (error) {

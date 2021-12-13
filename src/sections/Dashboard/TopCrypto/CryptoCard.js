@@ -12,26 +12,26 @@ function CryptoCard({ data }) {
   return (
     <Box sx={styles.cryptoCard}>
       <Box mb="1rem" sx={styles.flex}>
-        <Heading as="h4">{data.name} </Heading>
+        <Heading as="h4">{data?.name} </Heading>
         <Box sx={styles.imageWrapper}>
-          <Image src={data.logo_url} />
+          <Image src={data?.logo_url} />
         </Box>
       </Box>
       <Text sx={styles.cryptoCard.cryptoPrice}>
-        ₹ {parseFloat(data.price).toFixed(2)}
+        ₹ {parseFloat(data?.price).toFixed(2)}
       </Text>
       <Box mt="0.4rem">
         <Text>Percentage changes</Text>
         <Box mt="0.1rem" sx={styles.flex}>
           <Box>Hourly</Box>
-          <Box color={getColor(data.one_hour.price_change_pct)}>
-            {data.one_hour.price_change_pct}%
+          <Box color={getColor(data?.one_hour?.price_change_pct)}>
+            {data?.one_hour?.price_change_pct}%
           </Box>
         </Box>
         <Box mt="0.1rem" sx={styles.flex}>
           <Box>Daily</Box>
-          <Box color={getColor(data.one_day.price_change_pct)}>
-            {data.one_day.price_change_pct}%
+          <Box color={getColor(data?.one_day?.price_change_pct)}>
+            {data?.one_day?.price_change_pct}%
           </Box>
         </Box>
       </Box>
