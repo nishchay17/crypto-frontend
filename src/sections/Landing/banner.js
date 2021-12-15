@@ -9,7 +9,7 @@ import BannerImage from "../../assets/banner-1.png";
 import SigninModal from "./SigninModal";
 
 const BANNER_DATA = {
-  title: "Welcome To The Crypto Alerts",
+  title: "Welcome To The Crypto Market",
   text: "We help users to track, and understand cryptocurrency market seamlessly",
   signup: {
     link: "/sign-up",

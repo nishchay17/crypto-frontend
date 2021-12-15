@@ -27,7 +27,7 @@ function ProtectedNav({ className }) {
       <Box as="header" sx={styles.header} className={className}>
         <Container variant="container.big" sx={styles.container}>
           <Link href="/dashboard">
-            <Heading sx={{ cursor: "pointer" }}>Crytpo Alert</Heading>
+            <Heading sx={{ cursor: "pointer" }}>Crytpo Market</Heading>
           </Link>
           <Flex as="nav" sx={styles.nav}>
             <Box sx={styles.subMenuWrapper} ref={wrapperRef}>

@@ -13,7 +13,7 @@ export default function Header({ className, navLinkData }) {
       <Box as="header" sx={styles.header} className={className}>
         <Container sx={styles.container}>
           <Link href="/">
-            <Heading sx={{ cursor: "pointer" }}>Crytpo Alert</Heading>
+            <Heading sx={{ cursor: "pointer" }}>Crytpo Market</Heading>
           </Link>
 
           <Flex as="nav" sx={styles.nav}>

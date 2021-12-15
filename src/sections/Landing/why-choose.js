@@ -7,8 +7,8 @@ import icon4 from "../../assets/why-choose-4.svg";
 
 const WHY_CHOOSE_DATA = {
   blockTitle: {
-    title: "Why to choose Crypto Alert",
-    text: "Join Crypto Alert to make things uncomplicated",
+    title: "Why to choose Crypto Market",
+    text: "Join Crypto Market to make things uncomplicated",
   },
   posts: [
     {

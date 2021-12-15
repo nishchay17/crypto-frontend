@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Container, Heading, Text, Link } from "theme-ui";
 
 const CALL_TO_ACTION_DATA = {
-  title: "Want to join Crypto Alerts?",
+  title: "Want to join Crypto Market?",
   text: "Discover how we can help you power-up your crypto investments",
   button: {
     link: "/sign-up",
