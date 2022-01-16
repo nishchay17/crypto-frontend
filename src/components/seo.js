@@ -2,10 +2,10 @@ import React from "react";
 import Head from "next/head";
 
 export default function Seo({
-  description = "CryptoAlert is a web based user friendly platform which revolves around the spheres of crypto-currency",
+  description = "CryptoMarket is a web based user friendly platform which revolves around the spheres of crypto-currency",
   author = "Nishchay17",
   meta,
-  title = "Crpto Alert",
+  title = "Crpto Market",
 }) {
   const metaData = [
     {

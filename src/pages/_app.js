@@ -1,4 +1,3 @@
-/** Uncomment the below codeblock if you want to add google analytics for more info please visit our docs analytics section */
 /** 
 import { useEffect } from 'react';
 import Router from 'next/router';
